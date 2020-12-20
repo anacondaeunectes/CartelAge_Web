@@ -1,0 +1,42 @@
+<div id="header__LoginDropdownMenu">
+    <div class="header_LoginDropdownMenuItem" (click)="logout()">
+        Cerrar sesión
+    </div>
+</div>
+
+<header class="header__GeneralContainer">
+    
+    <div class="header__LeftItemsContainer">
+        <div class="header__Item">
+          <img class="logo" src="../../../assets/imgs/CartelAge_Colors-03.png" alt="CartelAge" height="100%" title="Go Home">
+        </div>
+        <div class="header__Item">
+           Películas
+        </div>
+        <div class="header__Item">
+           Favoritas
+        </div>
+    </div>
+
+    <div class="header__RightItemsContainer">
+        
+        <div class="header__Item" *ngIf="authService.user | async as user; else login" (click)="toggleDropdownButton()">
+
+           {{ user.email }}
+           <img [src]="user.photoURL" alt="Profile Image" class="header__ProfileImage">
+
+           <button (click)="authService.test()">Cerrar sesión</button>
+        </div>
+    </div>
+
+    
+
+    <ng-template #login>
+        <div class="header__Item" (click)="loginGoogle()">
+            <!-- <button (click)="loginGoogle()" class="header__botonInicioSesion">Inicio sesión</button> -->
+            Iniciar Sesion
+        </div>
+    </ng-template>
+    
+
+</header>

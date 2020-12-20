@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "cartelage"
+  },
+  "targets": {
+    "cartelage": {
+      "hosting": {
+        "CartelAge": [
+          "cartelage"
+        ]
+      }
+    }
+  }
+}

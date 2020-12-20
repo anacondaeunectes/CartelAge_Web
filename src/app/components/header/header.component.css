@@ -1,0 +1,87 @@
+.header__GeneralContainer{
+    width: 100%;
+    background-color:  white;
+    height: 55px;
+    position: sticky;
+    top: 0;
+    /* margin-left: -10px; */
+    /* margin-right: ; */
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.header__LeftItemsContainer{
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+
+.header__LeftItemsContainer > .header__Item{
+    float: left;
+    height: 100%;
+    /* background-color: aquamarine; */
+}
+
+.header__RightItemsContainer{
+    float: right;
+    height: 100%;
+    width: 50%;
+}
+
+.header__RightItemsContainer > .header__Item{
+    float: right;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+.header__Item{
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.header__Item:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.logo{
+    transform: scale(0.7);
+}
+
+.header__ProfileImage{
+    border-radius: 50%;
+    height: 65%;
+    /* border-width: 1px;
+    border-style: solid; */
+    margin-left: 10px;
+}
+
+#header__LoginDropdownMenu{
+    background-color: white;
+    margin-top: 55px;
+    margin-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    height: 40px;
+    text-align: center;
+    display: none;
+    position: fixed;
+    right: 10px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.header_LoginDropdownMenuItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 150px;
+    width: 100%;
+    height: 100%;
+}
+
+.header_LoginDropdownMenuItem:hover{
+    background-color: rgba(0,0,0,0.1);
+}

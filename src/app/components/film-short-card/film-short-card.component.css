@@ -1,0 +1,126 @@
+.shortCard__GeneralContainer{
+    background-color: #ffffff;
+    height: 18em;
+    width: 13em;
+    /* display: flex;
+    flex-direction: column; */
+    display: inline-block;
+
+    margin-left: 50px;
+
+
+    border-radius: 4px;
+    border-width: 0.2px;
+    border-style: solid;
+    border-color: gray;
+    box-shadow: 2px 2px 2px gray;
+    overflow: hidden;
+}
+
+.shortCard__ImageContainer{
+    height: 15em;
+    width: 13em;
+    /* border-radius: 4px; */
+    /* background-image: url("../../../assets/imgs/historia-interminable.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; */
+}
+
+.shortCard__Image{
+    height: 15em;
+    width: 13em;
+    object-position: top;
+    object-fit: cover;
+}
+
+.shortCard__DescriptionContainer{
+    height: 3em;
+    display: flex;
+    /* justify-content: space-evenly; */
+    align-items: center;
+    background-color: #ffffff;
+    color: #161320;
+}
+
+.shortCard__TitleContainer{
+    width: 80%;
+}
+
+.shortCard__Title{
+    font-size: 15px;
+    margin-left: 5%;
+    /* word-wrap: break-word;Not working */
+    overflow: hidden;
+}
+
+.vertical__separator{
+    border-left: 0.5px solid gray;
+    height: 100%;
+}
+
+.shortCard_FavContainer{
+    width: 20%;
+    text-align: center;
+}
+
+.shortCard_Fav{
+    fill: #c4c4c4;
+}
+
+.shortCard_Fav:hover{
+    /* fill: black; */
+    transition-duration: 0.5s;
+    transition-property: transform;
+    transform: scale(1.2);
+}
+
+hr{
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    /* border-style: solid; */
+    border-top-width: 0px;
+    color: gray;
+}
+
+/* #2e2181 */
+/* 
+.shortCard__GeneralContainer{
+    background-color: #1a2129;
+    height: 18em;
+    width: 13em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 3px 3px 3px #000000;
+} */
+/* #191f27 */
+
+/* .shortCard__ImageContainer{
+    height: 13em;
+    width: 11em;
+    background-image: url("../../../assets/imgs/historia-interminable.jpg");
+    background-size: cover;
+    margin: 1em;
+    border-radius: 10px;
+}
+
+.shortCard__ImageContainer:hover{
+    height: 18em;
+    width: 13em;
+    margin: 0;
+    background-image: url("../../../assets/imgs/historia-interminable.jpg");
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.shortCard__TitleContainer{
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #a8a7a7; 
+    color: #ffffff;
+} */

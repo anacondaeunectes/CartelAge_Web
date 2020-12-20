@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [ "firebase", "@firebase/app", "firebase/app", "@firebase/functions", "@firebase/auth", "@firebase/storage", "@firebase/database", "@firebase/performance", "@firebase/remote-config", "@firebase/component" ],
             "outputPath": "dist/CartelAge",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -117,8 +118,13 @@
               "devServerTarget": "CartelAge:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "CartelAge"
 }
