@@ -53,26 +53,12 @@ export class DbService {
     let gg = this.database.ref('Users/' + uid + '/favList').once('value');
 
     return (await gg).val();
-
-    // let xx = (await gg).val();
-
-    // console.log('XXX: ', xx)
-
-    // , x => {
-    //   x.val().forEach( v => {
-    //     console.log(v)
-    //     this.database.ref('Films/' + v).once( 'value', y => console.log('yy: ',y.val()))
-    //   } )
-    // });
   }
 
   async direct2(ff:[]) {
 
     let films = [];
 
-    // let cc = this.database.ref('Films/' + x).once('value');
-
-    // let prom = this.database.ref('Films/').equalTo(rrr()).once('value', resolve);
     console.log(ff);
 
     let v = await ff.map( async x => {
@@ -81,27 +67,10 @@ export class DbService {
 
       console.log('cvcv: ', await (await oo).val());
 
-      // y = await (await oo).val();
-
-      // this.database.ref('Films/' + x).once('value', x => {
-      //   console.log('¿?: ', x.val()); 
-      //   films.push( x.val().cartel_ref); 
-      //   y = x.val();
-      //   // return x.val();
-      // })
       return await (await oo).val();
     })
 
-    // ff.forEach( x => {
-    //   this.database.ref('Films/' + x).once('value', async x => {
-    //     console.log('¿?: ',await  x.val()); 
-    //     films.push(await x.val().cartel_ref); 
-    //   })
-    // })
-
     let kk = Promise.all(v);
-
-// console.log(await v);
 
     return await kk;
   }
@@ -111,43 +80,16 @@ export class DbService {
 
     const path = 'Users/';
 
-    // let gg = null;
-
-    // await this.database.ref(path + uid + '/favList').on('value', x => gg = x.val());
-
-    // return gg;
-
     return new Promise<any>(resolve => {
       this.database.ref(path + uid + '/favList').on('value', resolve)
     });
-
-    // return tryr();
   }
 
   getFilms(asd:Promise<any>){
 
     const path = 'Films/';
 
-    let films:Film[] = [];
-    
-    // return firebase.database().ref(path).once('value').then((snapshot) => {
-    //   var username = (snapshot.val()[5]) || 'Anonymous';
-    //   return username;
-    // });
-
-    // asd.then(x => {
-      
-    //   console.log('912CV: ', x.val());
-    //   x.val().forEach(async element => {
-    //     console.log(element)
-    //     await this.database.ref(path + element).on('value', async x => await films.push(x.val()))
-    //   })
-    //   // console.log(films);
-    //   // this.database.ref(path + element).on('value', resolve, x => console.error(x))
-    // })
-
-    // return films;
-    
+    let films:Film[] = [];    
 
     return new Promise<any>( resolve =>  {
       asd.then(x => {
@@ -165,9 +107,3 @@ export class DbService {
     );
   }
 }
-
-    // setTimeout( () => console.log('Boof'), 1000);
-
-    // const wait = () => new Promise(resolve => setTimeout(resolve, 4000));
-
-    // return wait();

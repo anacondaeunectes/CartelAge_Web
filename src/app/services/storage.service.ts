@@ -13,7 +13,7 @@ export class StorageService {
 
   constructor( public dbService:DbService, public authService: AuthService) { }
   
-  async getFavImgs():Promise<any[]>{
+  async getFavIm():Promise<any[]>{
     let cc = await this.dbService.direct2(await this.dbService.direct(this.authService.authState.uid));
     let jh = await cc.map( x => this.storage.ref(x.cartel_ref).getDownloadURL());
     let yy = Promise.all(jh);
@@ -23,6 +23,10 @@ export class StorageService {
     return await yy;
     // let films = this.dbService.getFilms(this.dbService.getUserFavListPromise(this.authService.authState.uid));
     // films.forEach( c => console.log(this.storage.ref(c.cartel_ref).getDownloadURL()));
+  }
+
+  async getImg(img_ref:string) {
+    return await this.storage.ref(img_ref).getDownloadURL();
   }
   
 }

@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Desde OnInit de header');
-    // console.log(this.authService.authState.uid);
   }
 
   loginGoogle() {
