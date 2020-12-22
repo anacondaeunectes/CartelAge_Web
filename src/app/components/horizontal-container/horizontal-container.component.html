@@ -1,4 +1,11 @@
-<div class="horizontal__Conntainer" >
+<div class="horizontal__Container" >
+    <!-- <app-film-short-card [film]="films[0] | async"></app-film-short-card> -->
+    <button (click)="getReetet()">Film</button>
+
+    <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]"></app-film-short-card>
+
+    <!-- <app-film-short-card [film]="films[0]"></app-film-short-card> -->
+    <!-- <app-film-short-card></app-film-short-card>
     <app-film-short-card></app-film-short-card>
     <app-film-short-card></app-film-short-card>
     <app-film-short-card></app-film-short-card>
@@ -6,9 +13,7 @@
     <app-film-short-card></app-film-short-card>
     <app-film-short-card></app-film-short-card>
     <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
+    <app-film-short-card></app-film-short-card> -->
 </div>
 
 <!-- [ngStyle]="{'background-color': bckg_color}" -->

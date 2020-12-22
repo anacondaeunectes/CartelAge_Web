@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { StorageService } from 'src/app/services/storage.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,13 +12,14 @@ export class HeaderComponent implements OnInit {
 
   public menu_isVisible:boolean = false;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, public storageService:StorageService) { 
+    console.log('Desde constructor de header');
+   }
 
   ngOnInit(): void {
-    console.log(this.authService.auth.currentUser.then(user => console.log(user)));
+    console.log('Desde OnInit de header');
+    // console.log(this.authService.authState.uid);
   }
-
-  //Recibe un Film[] para hacer un *ngFor por cada film para que cree un short-card-film por cada uno
 
   loginGoogle() {
     this.authService.loginGoogle();

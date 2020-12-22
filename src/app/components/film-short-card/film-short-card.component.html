@@ -1,11 +1,11 @@
 <div class="shortCard__GeneralContainer">
     <div class="shortCard__ImageContainer" >
-        <img class="shortCard__Image" [src]="img_src | async" [alt]="title" [title]="title">
+        <img class="shortCard__Image" [src]="img_src" [alt]="film.title" [title]="film.title">
     </div>
     <!-- <hr> -->
     <div class="shortCard__DescriptionContainer">
         <div class="shortCard__TitleContainer">
-            <p [title]="title" class="shortCard__Title">{{title}}</p>
+            <p [title]="film.title" class="shortCard__Title">{{film.title}}</p>
         </div>
 
         <div class="vertical__separator"></div>

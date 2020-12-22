@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { Film } from 'src/app/models/film.model';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-film-short-card',
@@ -9,20 +11,30 @@ import { Observable } from 'rxjs';
 })
 export class FilmShortCardComponent implements OnInit {
 
-  // img_src="../../../assets/imgs/Star_Wars.jpg";
-  title="Star Wars";
+  @Input()
+  film:Film;
 
-  img_src: Observable<string | null>;
+  img_src:string = null;
 
-  constructor(public storage:AngularFireStorage) { 
-    const ref = this.storage.ref('historia-interminable.jpg');
-    this.img_src = ref.getDownloadURL();  
+  // img_src: Observable<string | null>;
+
+  constructor(public storage:StorageService) {
+     console.log('Desde constructor de film-short-card');
+    // const ref = this.storage.ref('historia-interminable.jpg').;
+    // this.img_src = ref.getDownloadURL();  
     // this.img_src.subscribe()  
   }
 
   ngOnInit(): void {
+    console.log('film: ', this.film)
+    this.getImg();
   }
 
+  async getImg(/*img_ref:string*/) {
+    this.storage.storage.ref(this.film.cartel_ref).getDownloadURL().then( url => this.img_src = url);
+
+    
+  }
   //Recibe un objeto Film y crea un componente film-short-card con la info de este
 
 }
