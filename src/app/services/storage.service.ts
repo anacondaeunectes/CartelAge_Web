@@ -14,7 +14,7 @@ export class StorageService {
   constructor( public dbService:DbService, public authService: AuthService) { }
   
   async getFavIm():Promise<any[]>{
-    let cc = await this.dbService.direct2(await this.dbService.direct(this.authService.authState.uid));
+    let cc = await this.dbService.getFilmsReferences(await this.dbService.getFavList(this.authService.authState.uid));
     let jh = await cc.map( x => this.storage.ref(x.cartel_ref).getDownloadURL());
     let yy = Promise.all(jh);
 

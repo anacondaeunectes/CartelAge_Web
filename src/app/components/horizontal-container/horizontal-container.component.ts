@@ -45,7 +45,7 @@ export class HorizontalContainerComponent implements OnInit {
 
   async getReetet(){
     // console.log('uid: ',this.authService.authState.uid)
-    this.dbService.direct2(await this.dbService.direct(this.authService.authState.uid))
+    this.dbService.getFilmsReferences(await this.dbService.getFavList(this.authService.authState.uid))
     .then( x => {
       this.films = x;
       console.log(this.films);

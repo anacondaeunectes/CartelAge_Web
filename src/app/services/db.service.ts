@@ -48,14 +48,14 @@ export class DbService {
     (queryErr) => console.log('Query error: ', queryErr));
   }
 
-  async direct(uid:string){
+  async getFavList(uid:string){
 
     let gg = this.database.ref('Users/' + uid + '/favList').once('value');
 
     return (await gg).val();
   }
 
-  async direct2(ff:[]) {
+  async getFilmsReferences(ff:[]) {
 
     let films = [];
 

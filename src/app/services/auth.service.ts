@@ -30,7 +30,7 @@ export class AuthService{
   }))
 
   async test(){
-    console.log('test: ',await this.dbService.direct2(await this.dbService.direct(this.authState.uid)));
+    console.log('test: ',await this.dbService.getFilmsReferences(await this.dbService.getFavList(this.authState.uid)));
   }
 
   //Allows to log in with a Google account. Also calls checkNewUser(user) method everytime an user successfully logs in.
