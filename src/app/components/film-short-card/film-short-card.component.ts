@@ -14,24 +14,27 @@ export class FilmShortCardComponent implements OnInit {
   @Input()
   film:Film;
 
+  fav:boolean = false;
+
   img_src:string = null;
 
   constructor(public storage:StorageService) {
-     console.log('Desde constructor de film-short-card');
-    // const ref = this.storage.ref('historia-interminable.jpg').;
-    // this.img_src = ref.getDownloadURL();  
-    // this.img_src.subscribe()  
+     console.log('Desde constructor de film-short-card');  
   }
 
   ngOnInit(): void {
     console.log('film: ', this.film)
-    // this.getImg();
+    this.getImgUrl();
+  }
+
+  /* This method search film's property url in database and assign to response to img_src property */ 
+  async getImgUrl() {
     this.storage.getImg(this.film.cartel_ref).then( url => this.img_src = url);
   }
 
-  // async getImg(/*img_ref:string*/) {
-  //   this.storage.storage.ref(this.film.cartel_ref).getDownloadURL().then( url => this.img_src = url);
-  // }
+  switchFav(){
+    this.fav = !this.fav;
+  }
 
   //Recibe un objeto Film y crea un componente film-short-card con la info de este
 

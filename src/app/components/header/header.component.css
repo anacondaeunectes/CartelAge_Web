@@ -1,11 +1,10 @@
 .header__GeneralContainer{
+    /* z-index: 990; */
     width: 100%;
     background-color:  white;
     height: 55px;
     position: sticky;
     top: 0;
-    /* margin-left: -10px; */
-    /* margin-right: ; */
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
@@ -22,18 +21,20 @@
 }
 
 .header__RightItemsContainer{
+    /* z-index: 990; */
     float: right;
     height: 100%;
     width: 50%;
 }
 
 .header__RightItemsContainer > .header__Item{
+    /* z-index: 990; */
     float: right;
     height: 100%;
-    /* background-color: aqua; */
 }
 
 .header__Item{
+    /* z-index: 990; */
     min-width: 50px;
     display: flex;
     align-items: center;
@@ -50,14 +51,14 @@
 }
 
 .header__ProfileImage{
+    /* z-index: 990; */
     border-radius: 50%;
     height: 65%;
-    /* border-width: 1px;
-    border-style: solid; */
     margin-left: 10px;
 }
 
 #header__LoginDropdownMenu{
+    /* z-index: 10; */
     background-color: white;
     margin-top: 55px;
     margin-left: 15px;
@@ -74,6 +75,7 @@
 }
 
 .header_LoginDropdownMenuItem{
+    /* z-index: 10; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,4 +86,11 @@
 
 .header_LoginDropdownMenuItem:hover{
     background-color: rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width: 576px){
+    /* In case the device width is smaller than 576 pixels, the user profile email is not showed */
+    #header__ProfileEmail{
+        display: none;
+    }
 }

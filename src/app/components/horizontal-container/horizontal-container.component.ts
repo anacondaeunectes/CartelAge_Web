@@ -14,42 +14,71 @@ export class HorizontalContainerComponent implements OnInit {
 
   @Input()
   bckg_color:string;
+  
+  @Input()
+  title:string = "TITULO";
 
-  films:Film[] = null;
+  films:Film[];
 
   constructor(public dbService:DbService, public authService:AuthService) { 
-    console.log('Desde constructor de header');
-    console.log(this.films);
-  }
 
-  // test = this.authService.user.subscribe( () => {
-  //   console.log('Change notice Horizontal COmponent');
-  //   this.getReetet();
-  // });
-  
-  // test = this.authService.user.pipe( map( authState => {
-  //   console.log('authState44: ', authState);
-  //   if(!authState){
-  //     console.log('Change notice Horizontal COmponent')
-  //   }
-  // }))
+    /* Susbscription attached to database user property Observer:
+        - When an user logs out, films property is set to null 
+        - When an user logs in, executes getFavListUrls() in order to charge new user fav films list.
+    */
+    this.authService.user.subscribe(async x => {
+      console.log('cambio');
+      if(x != null){
+      console.log('cambio222');
+        this.getFavListUrls();
+
+        // this.dbService.getFilmsReferences(await this.getTest()).then( x => {
+        //   this.films = x;
+        //   console.log(this.films);
+        // })
+      }else{
+        console.log('NULL');
+        this.films = null;
+      }
+    })
+
+  }
 
   async ngOnInit(): Promise<void> {
     console.log('Desde OnInit de Horizontal');
-    this.authService.user.subscribe( x => {
-      this.getReetet()
-    })
+    // console.log((await this.getTest()))
   }
 
-  
-
-  async getReetet(){
-    // console.log('uid: ',this.authService.authState.uid)
+  /* This method uses db service methods in order to get an array of user fav films list */
+  async getFavListUrls(){
     this.dbService.getFilmsReferences(await this.dbService.getFavList(this.authService.authState.uid))
     .then( x => {
       this.films = x;
       console.log(this.films);
     })
+  }
+
+  async getYY(){
+
+    let gg =  await this.dbService.database.ref('Films/').once('value');
+
+    return await gg;
+  }
+
+  async getTest(){
+
+    let arrayTest:string[] = [];
+
+    await this.getYY().then( p => {
+      // console.log('1: ', p.exportVal());
+      // console.log('2: ', p.val());
+      p.forEach(element => {
+        console.log(element.key)
+        arrayTest.push(element.key);
+      });
+    })
+
+    return arrayTest;    
   }
 
   //Recibe un Film[] para hacer un *ngFor por cada film para que cree un short-card-film por cada uno

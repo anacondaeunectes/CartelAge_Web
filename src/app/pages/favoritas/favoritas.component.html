@@ -1,0 +1,10 @@
+<app-header></app-header>
+<div *ngIf="authService.user | async; else login">
+    <app-horizontal-container [title]="'Mis Favoritas'"></app-horizontal-container>
+</div>
+
+<ng-template #login>
+    <app-log-in></app-log-in>
+</ng-template>
+<!-- <app-horizontal-container [title]="'Mis Dramas'"></app-horizontal-container>
+<app-horizontal-container [title]="'Animación'"></app-horizontal-container> -->

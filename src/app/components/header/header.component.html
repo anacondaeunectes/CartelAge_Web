@@ -1,43 +1,52 @@
+<!-- Allows dropdown menu to be 'behind' the header as hasn't been able to achieve using 'z-index' css property -->
 <div id="header__LoginDropdownMenu">
     <div class="header_LoginDropdownMenuItem" (click)="logout()">
         Cerrar sesión
     </div>
 </div>
 
-<header class="header__GeneralContainer">
+<header class="header__GeneralContainer" *ngIf="authService.user | async as user; else login">
     
     <div class="header__LeftItemsContainer">
         <div class="header__Item">
-          <img class="logo" src="../../../assets/imgs/CartelAge_Colors-03.png" alt="CartelAge" height="100%" title="Go Home">
+            <img class="logo" src="../../../assets/imgs/CartelAge_Colors-03.png" alt="CartelAge" height="100%" title="Go Home">
         </div>
-        <div class="header__Item">
-           Películas
+        <div class="header__Item" routerLink="/peliculas">
+            Películas
         </div>
-        <div class="header__Item">
-           Favoritas
+        <div class="header__Item" routerLink="/favoritas">
+            Favoritas
         </div>
     </div>
-
+    
     <div class="header__RightItemsContainer">
         
-        <div class="header__Item" *ngIf="authService.user | async as user; else login" (click)="toggleDropdownButton()">
+        <div class="header__Item" (click)="toggleDropdownButton()">
+            <span id="header__ProfileEmail">{{ user.email }}</span>
+            <img [src]="user.photoURL" alt="Profile Image" class="header__ProfileImage">
 
-           {{ user.email }}
-           <img [src]="user.photoURL" alt="Profile Image" class="header__ProfileImage">
-
-           <!-- <button (click)="storageService.getFavImgs()">Cerrar sesión</button> -->
-           <button (click)="authService.test()">Cerrar sesión</button>
+            <!-- <button (click)="storageService.getFavImgs()">Cerrar sesión</button> -->
+            <!-- <button (click)="authService.test()">Cerrar sesión</button> -->
         </div>
     </div>
 
-    
-
-    <ng-template #login>
-        <div class="header__Item" (click)="loginGoogle()">
-            <!-- <button (click)="loginGoogle()" class="header__botonInicioSesion">Inicio sesión</button> -->
-            Iniciar Sesion
-        </div>
-    </ng-template>
-    
-
 </header>
+
+<!-- In case the user is not logged in, this template is shown as header -->
+<ng-template #login>
+
+    <header class="header__GeneralContainer">
+        <div class="header__LeftItemsContainer">
+            <div class="header__Item">
+            <img class="logo" src="../../../assets/imgs/CartelAge_Colors-03.png" alt="CartelAge" height="100%" title="Go Home">
+            </div>
+        </div>
+        <div class="header__RightItemsContainer">
+            <div class="header__Item" (click)="loginGoogle()">
+                <!-- <button (click)="loginGoogle()" class="header__botonInicioSesion">Inicio sesión</button> -->
+                Iniciar Sesion
+            </div>
+        </div>
+    </header>
+
+</ng-template>

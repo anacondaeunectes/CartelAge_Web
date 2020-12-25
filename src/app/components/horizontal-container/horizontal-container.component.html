@@ -1,19 +1,18 @@
-<div class="horizontal__Container" >
-    <!-- <app-film-short-card [film]="films[0] | async"></app-film-short-card> -->
-    <button (click)="getReetet()">Film</button>
-
-    <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]"></app-film-short-card>
-
-    <!-- <app-film-short-card [film]="films[0]"></app-film-short-card> -->
-    <!-- <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card>
-    <app-film-short-card></app-film-short-card> -->
+<div *ngIf="authService.user | async as user; else noUserLogged">
+    <div class="horizontal__Container__Wrapper">
+        <p class="horizontal_Container_Title">
+            <b>{{ title }}</b>
+        </p>
+        
+        <div class="horizontal__Container">
+            <!-- <app-film-short-card [film]="films[0] | async"></app-film-short-card> -->
+            <!-- <button (click)="getFavListUrls()">Film</button> -->
+        
+            <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]"></app-film-short-card>
+        </div>
+    </div>
 </div>
+
+<ng-template #noUserLogged></ng-template>
 
 <!-- [ngStyle]="{'background-color': bckg_color}" -->
