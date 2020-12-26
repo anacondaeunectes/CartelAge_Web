@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div *ngIf="authService.user | async; else login">
-    <app-vertical-container [title]="'Pelis'"></app-vertical-container>
+    <app-vertical-container [title]="'Pelis'" [films]="films"></app-vertical-container>
 </div>
 
 <ng-template #login>

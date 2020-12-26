@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Film } from '../models/film.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +13,16 @@ export class DbService {
 
   database = firebase.database();
 
-  constructor() { 
+  readonly filmsPath = 'Films/';
+
+  readonly usersPath = 'Users/';
+
+  constructor(public db: AngularFireDatabase) { 
     console.log('Desde constructor de DbService');
+    // this.database.ref('Films/').on( 'value' , x => console.log('QWERTY: ', x.val()) )
+    this.getFilms( x => {
+      console.log('desde callback: ', x.val())
+    } );
   }
 
   /* This method checks everytime an user logs in (as it's used in loginGoogle() method) if it's uid is registered in the database:
@@ -35,6 +48,7 @@ export class DbService {
       console.log('Query completed', queryOk.val());
       if (queryOk.val() == undefined) {
         console.log('Creating new user in DB');
+        // this.db.object(path + uid).update(newRecordModel);
         this.database.ref(path + uid).update(newRecordModel);
       } else {
         console.log('User already exists');
@@ -71,7 +85,36 @@ export class DbService {
     return await resolve;
   }
 
-  getFilms(){
-    
+  onFilmAdded(callback){
+    console.log('Pelicula agregada: ', );
+    this.database.ref(this.filmsPath).on('child_added', callback);
   }
+
+  onFilmRemoved(callback){
+    console.log('Pelicula agregada: ', );
+    this.database.ref(this.filmsPath).on('child_removed', callback);
+  }
+
+  onFilmUpdated(callback){
+    console.log('Pelicula actualizada: ');
+    this.database.ref(this.filmsPath).on('child_changed', callback);
+
+  }
+
+  // METODO QUE COGA TODAS LAS PELICULAS DE /FILMS
+  getFilms(callback){
+    
+    const filmsPath:string = "Films/";
+
+    // this.database.ref(filmsPath).on( 'child_added', x => {console.log('QWERTY222: ', x.val()) })
+    this.database.ref(filmsPath).once( 'value', callback );
+  }
+
+  getUserFavList(uid:string, callback){
+    this.database.ref(this.usersPath + uid).on('child_added', callback);
+  }
+
+
+  
+
 }

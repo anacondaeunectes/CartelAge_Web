@@ -1,14 +1,14 @@
-<div *ngIf="authService.user | async as user; else noUserLogged">
+<div *ngIf="authService.user | async as user;">
 
     <div class="vertical__Container__Wrapper">
         <p class="vertical_Container_Title">
             <b>{{ title }}</b>
+            <button (click)="update()">test</button>
         </p>
         
         <div class="vertical__Container">
-            <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]"></app-film-short-card>
+            <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]" [fav]="films[i].isFav"></app-film-short-card>
         </div>
     </div>
 </div>
 
-<ng-template #noUserLogged></ng-template>

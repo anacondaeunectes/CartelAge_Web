@@ -13,11 +13,9 @@ import { DbService } from 'src/app/services/db.service';
 export class HorizontalContainerComponent implements OnInit {
 
   @Input()
-  bckg_color:string;
-  
-  @Input()
   title:string = "TITULO";
 
+  @Input()
   films:Film[];
 
   constructor(public dbService:DbService, public authService:AuthService) { 

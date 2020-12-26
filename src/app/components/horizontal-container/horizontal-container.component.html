@@ -8,7 +8,7 @@
             <!-- <app-film-short-card [film]="films[0] | async"></app-film-short-card> -->
             <!-- <button (click)="getFavListUrls()">Film</button> -->
         
-            <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]"></app-film-short-card>
+            <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]" [fav]=films[i].isFav></app-film-short-card>
         </div>
     </div>
 </div>
