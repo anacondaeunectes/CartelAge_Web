@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map,  } from 'rxjs/operators';
 import { Film } from '../models/film.model';
 import { AuthService } from './auth.service';
 
@@ -17,27 +17,42 @@ export class DbService {
 
   readonly usersPath = 'Users/';
 
-  constructor(public db: AngularFireDatabase) { 
-    console.log('Desde constructor de DbService');
-    // this.database.ref('Films/').on( 'value' , x => console.log('QWERTY: ', x.val()) )
-    this.getFilms( x => {
-      console.log('desde callback: ', x.val())
-    } );
+  lastId:number;
+
+  films$:Observable<Film[]> = this.db.list<Film>(this.filmsPath).valueChanges();
+
+  constructor(public db: AngularFireDatabase, public authService:AuthService) {
+
+    this.getLastIndex()
+
+  
+    this.authService.user.subscribe(async x => {
+      console.log('cambio');
+      if(x != null){
+        console.log('cambio222: ', x.uid);
+        this.checkNewUser2();
+        
+      
+      }else{
+        console.log('NULL');
+      }
+    })
+
   }
 
   /* This method checks everytime an user logs in (as it's used in loginGoogle() method) if it's uid is registered in the database:
       - If registered: Does nothing.
       - If not registered: Means is his first log in so it's created a new record with a model JSON (newRecordModel)
   */
-  checkNewUser2(uid:string) {
+  checkNewUser2() {
     // Path where users records are located in the db
     const path = 'Users/';
+
+    let uid = this.authService.uid;
 
     // Model JSON to assign to the new user (if first time login) db record
     const newRecordModel = {
       favList: {
-        0: 1,
-        1: 5
       },
       titleFavList: 'Favoritas'
     }
@@ -57,64 +72,34 @@ export class DbService {
     (queryErr) => console.log('Query error: ', queryErr));
   }
 
-  /* This method get the list of favourites films IDs from the user info in the database and return a promise with the values */
-  async getFavList(uid:string){
-
-    let favListPromise = this.database.ref('Users/' + uid + '/favList').once('value');
-
-    return (await favListPromise).val();
+  getLastIndex(){
+    this.db.list<Film>(this.filmsPath).valueChanges().subscribe(x => {this.lastId = x.sort( (a, b) => a.id - b.id)[x.length - 1].id; console.log(this.lastId)});
   }
 
-  /* This method takes a list of films IDs in order to search their reference in the "Films" collection of the database.
-    Returns a promise with an array of the references values */
-  async getFilmsReferences(filmList:any[]) {
-    
-    console.log('22: ', filmList)
-
-    let filmListReferences = filmList.map( async film => {
-
-      let filmRef = this.database.ref('Films/' + film ).once('value');
-
-      console.log('cvcv: ', await (await filmRef).val());
-
-      return (await filmRef).val();
-    })
-
-    let resolve = Promise.all(filmListReferences);
-
-    return await resolve;
+  removeFav(id:number){
+    this.database.ref(this.usersPath + this.authService.uid + '/favList/' + id).remove();
+    // this.db.object(this.usersPath + this.authService.uid + '/favList/' + id).remove();
   }
 
-  onFilmAdded(callback){
-    console.log('Pelicula agregada: ', );
-    this.database.ref(this.filmsPath).on('child_added', callback);
+  addFav(id:number){
+    this.database.ref(this.usersPath + this.authService.uid + '/favList/' + id).push(id);
   }
 
-  onFilmRemoved(callback){
-    console.log('Pelicula agregada: ', );
-    this.database.ref(this.filmsPath).on('child_removed', callback);
+  onFavAdded(callback){
+    this.database.ref(this.usersPath + this.authService.uid + '/favList/').on('child_added', callback);
   }
 
-  onFilmUpdated(callback){
-    console.log('Pelicula actualizada: ');
-    this.database.ref(this.filmsPath).on('child_changed', callback);
-
+  onFavRemoved(callback){
+    this.database.ref(this.usersPath + this.authService.uid + '/favList/').on('child_removed', callback);
   }
 
-  // METODO QUE COGA TODAS LAS PELICULAS DE /FILMS
-  getFilms(callback){
-    
-    const filmsPath:string = "Films/";
-
-    // this.database.ref(filmsPath).on( 'child_added', x => {console.log('QWERTY222: ', x.val()) })
-    this.database.ref(filmsPath).once( 'value', callback );
+  addFilm(title:string, ref:string){
+    this.database.ref(this.filmsPath + (this.lastId + 1)).set({title: title, id: (this.lastId + 1), cartel_ref: ref});
   }
 
-  getUserFavList(uid:string, callback){
-    this.database.ref(this.usersPath + uid).on('child_added', callback);
+  removeFilm(id: number) {
+    this.database.ref(this.filmsPath + id).remove();
+    this.database.ref(this.usersPath + this.authService.uid + '/favList/' + id).remove();
   }
-
-
-  
 
 }

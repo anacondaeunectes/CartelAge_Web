@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { Film } from 'src/app/models/film.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { DbService } from 'src/app/services/db.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './film-short-card.component.html',
   styleUrls: ['./film-short-card.component.css']
 })
-export class FilmShortCardComponent implements OnInit {
+export class FilmShortCardComponent implements OnInit, OnChanges {
 
   @Input()
   film:Film;
@@ -19,29 +21,43 @@ export class FilmShortCardComponent implements OnInit {
 
   img_src:string;
 
-  constructor(public storage:StorageService, private cdr:ChangeDetectorRef) {
+  constructor(public storage:StorageService, public dbService:DbService, public authService:AuthService, public cdr:ChangeDetectorRef) {
      console.log('Desde constructor de film-short-card');
-    //  this.cdr.markForCheck();
-    //  setInterval( () => {
-    //   console.log('asd')
-    //   this.cdr.detectChanges()
-    // }, 2000)
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log('Cambio desde: ', this.film.title, ' ', changes);
   }
 
   ngOnInit(): void {
     console.log('film: ', this.film)
     this.getImgUrl();
+    this.getFav();
+    console.log('test isFav: ', this.film.isFav )
   }
 
   /* This method search film's property url in database and assign to response to img_src property */ 
   async getImgUrl() {
-    this.storage.getImg(this.film.cartel_ref).then( url => {this.img_src = url; this.cdr.detectChanges()});
+  this.storage.getImg(this.film.cartel_ref).then( url => {this.img_src = url; this.cdr.detectChanges()});
+  }
+
+  getFav(){
+    this.dbService.database.ref(this.dbService.usersPath + this.authService.uid + '/favList/' + this.film.id).on('value', x => {
+      console.log(x.val())
+      if (x.val()) {
+        this.film.isFav = true;
+      }
+    })
   }
 
   switchFav(){
-    this.fav = !this.fav;
-    console.log(this.fav);
-    this.cdr.detectChanges();
+    if (this.film.isFav) {
+      this.dbService.removeFav(this.film.id);
+      this.film.isFav = !this.film.isFav;
+    } else {
+      this.dbService.addFav(this.film.id);
+    }
+    // console.log(this.film.isFav);
+    // console.log(this.film.isFav);
   }
 
   //Recibe un objeto Film y crea un componente film-short-card con la info de este

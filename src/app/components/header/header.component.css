@@ -38,8 +38,8 @@
     min-width: 50px;
     display: flex;
     align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .header__Item:hover{
@@ -55,6 +55,11 @@
     border-radius: 50%;
     height: 65%;
     margin-left: 10px;
+}
+
+#header__ProfileEmail{
+    max-width: 260px;
+    overflow: hidden;
 }
 
 #header__LoginDropdownMenu{
@@ -93,4 +98,13 @@
     #header__ProfileEmail{
         display: none;
     }
+
+    .header__LeftItemsContainer{
+        width: 80%;
+    }
+
+    .header__RightItemsContainer{
+        width: 20%;
+    }
 }
+

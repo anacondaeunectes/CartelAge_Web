@@ -4,8 +4,6 @@
         <img class="shortCard__Image" [src]="img_src" [alt]="film.title" [title]="film.title">
     </div>
 
-    <!-- <hr> -->
-
     <div class="shortCard__DescriptionContainer">
 
         <div class="shortCard__TitleContainer">
@@ -17,7 +15,7 @@
         <div class="shortCard_FavContainer">
             
             <!-- The ngStyle directive fill this star svg in case the user has marked that film as favourite. Also allows an onClick event binding that let user mark and unmark that film as favourite -->
-            <svg height="23" width="23" class="shortCard_Fav" (click)="switchFav()" [ngStyle]="{'fill': fav == true ? 'orange' : '#c4c4c4'}">
+            <svg height="23" width="23" class="shortCard_Fav" (click)="switchFav()" [ngStyle]="{'fill': film.isFav == true ? 'orange' : '#c4c4c4'}">
                 <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78"/>
             </svg>
         </div>

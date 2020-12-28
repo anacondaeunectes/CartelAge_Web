@@ -13,7 +13,9 @@ export class AuthService{
 
   authState = null;
 
-  constructor(public auth: AngularFireAuth, public dbService:DbService) { 
+  uid:string;
+
+  constructor(public auth: AngularFireAuth/*, public dbService:DbService*/) { 
     console.log('Desde constructor de AuthService');
   }
 
@@ -22,6 +24,7 @@ export class AuthService{
       if(authState){
         console.log('pop')
         this.authState = authState;
+        this.uid = authState.uid;
         return authState;
       }else{
         this.authState = null;
@@ -29,16 +32,12 @@ export class AuthService{
       }
   }))
 
-  async test(){
-    console.log('test: ',await this.dbService.getFilmsReferences(await this.dbService.getFavList(this.authState.uid)));
-  }
-
   //Allows to log in with a Google account. Also calls checkNewUser(user) method everytime an user successfully logs in.
   loginGoogle() {
     this.auth.signInWithPopup( new auth.GoogleAuthProvider())
     .then( signIn => {
       console.log('Usuario logado: ', signIn);
-      this.dbService.checkNewUser2(signIn.user.uid);
+      // this.dbService.checkNewUser2(signIn.user.uid);
     })
     .catch( signIn => console.error('Error en el login: ' + signIn));
   }

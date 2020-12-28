@@ -16,6 +16,7 @@ import { FavoritasComponent } from './pages/favoritas/favoritas.component';
 import { VerticalContainerComponent } from './components/vertical-container/vertical-container.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LogInComponent } from './pages/log-in/log-in.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LogInComponent } from './pages/log-in/log-in.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

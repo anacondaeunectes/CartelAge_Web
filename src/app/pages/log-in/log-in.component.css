@@ -1,7 +1,8 @@
 .logIn__Container{
     display: flex;
-    margin-top: 100px;
+    margin: 100px 20px 0px 20px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }

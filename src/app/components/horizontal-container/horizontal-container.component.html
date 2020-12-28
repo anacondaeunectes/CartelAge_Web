@@ -6,8 +6,12 @@
         
         <div class="horizontal__Container">
             <!-- <app-film-short-card [film]="films[0] | async"></app-film-short-card> -->
-            <!-- <button (click)="getFavListUrls()">Film</button> -->
-        
+            <!-- <button (click)="update()">update</button> -->
+            <p id="test" *ngIf="films.length == 0">No se ha encontrado ningún favorito. Haz click en  
+                <svg height="23" width="23" id="favSVG">
+                    <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78"/>
+                </svg>
+                 para agregar películas a favoritos.</p>
             <app-film-short-card *ngFor="let filmList of films; index as i" [film]="films[i]" [fav]=films[i].isFav></app-film-short-card>
         </div>
     </div>

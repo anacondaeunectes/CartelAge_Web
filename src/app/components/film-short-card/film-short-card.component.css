@@ -32,6 +32,10 @@
     align-items: center;
     background-color: #ffffff;
     color: #161320;
+    border-top: gray;
+    border-width: 0px;
+    border-top-width: 1px;
+    border-style: solid;
 }
 
 .shortCard__TitleContainer{
@@ -63,11 +67,3 @@
     transition-property: transform;
     transform: scale(1.2);
 }
-
-/* hr{
-    margin-top: 0;
-    margin-bottom: 0;
-    width: 100%;
-    border-top-width: 0px;
-    color: black;
-} */
