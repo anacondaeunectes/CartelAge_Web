@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage'
 import * as firebase from 'firebase';
 import { AuthService } from './auth.service';
 import { DbService } from './db.service';
@@ -20,6 +19,7 @@ export class StorageService {
     return this.storage.ref(img_ref).getDownloadURL();
   }
 
+  /* This method upload an img to Firebase Storage */
   uploadImg(ref:string, img){
     this.storage.ref(ref).put(img);
   }

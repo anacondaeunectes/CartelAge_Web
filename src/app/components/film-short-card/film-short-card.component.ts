@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './film-short-card.component.html',
   styleUrls: ['./film-short-card.component.css']
 })
-export class FilmShortCardComponent implements OnInit, OnChanges {
+export class FilmShortCardComponent implements OnInit {
 
   @Input()
   film:Film;
@@ -22,27 +22,23 @@ export class FilmShortCardComponent implements OnInit, OnChanges {
   img_src:string;
 
   constructor(public storage:StorageService, public dbService:DbService, public authService:AuthService, public cdr:ChangeDetectorRef) {
-     console.log('Desde constructor de film-short-card');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log('Cambio desde: ', this.film.title, ' ', changes);
   }
 
   ngOnInit(): void {
-    console.log('film: ', this.film)
     this.getImgUrl();
     this.getFav();
-    console.log('test isFav: ', this.film.isFav )
   }
 
-  /* This method search film's property url in database and assign to response to img_src property */ 
+  /* This method search film's property url in database and assign the response to 'img_src' property */ 
   async getImgUrl() {
-  this.storage.getImg(this.film.cartel_ref).then( url => {this.img_src = url; this.cdr.detectChanges()});
+    this.storage.getImg(this.film.cartel_ref).then( url => {
+      this.img_src = url;
+      this.cdr.detectChanges()
+    });
   }
 
   getFav(){
     this.dbService.database.ref(this.dbService.usersPath + this.authService.uid + '/favList/' + this.film.id).on('value', x => {
-      console.log(x.val())
       if (x.val()) {
         this.film.isFav = true;
       }

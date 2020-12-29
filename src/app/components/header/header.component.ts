@@ -13,11 +13,9 @@ export class HeaderComponent implements OnInit {
   public menu_isVisible:boolean = false;
 
   constructor(public authService: AuthService, public storageService:StorageService) { 
-    console.log('Desde constructor de header');
    }
 
   ngOnInit(): void {
-    console.log('Desde OnInit de header');
   }
 
   loginGoogle() {

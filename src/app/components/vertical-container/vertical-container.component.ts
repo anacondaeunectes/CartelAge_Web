@@ -45,7 +45,6 @@ export class VerticalContainerComponent implements OnInit, AfterViewChecked {
   setImg(event){
     console.log(event.target.files[0])
     if (event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg' || event.target.files[0].type == 'image/jpeg') {
-      console.log(event.target.files[0]);
       this.imgInput = event.target.files[0];
     }else{
       console.log('Img type not allowed');
@@ -70,7 +69,6 @@ export class VerticalContainerComponent implements OnInit, AfterViewChecked {
   }
 
   removeFilm(film:Film){
-    console.log(this.isRemovingFilm)
     if (this.isRemovingFilm) {
       this.dbService.removeFilm(film.id);
       this.isRemovingFilm = false;
